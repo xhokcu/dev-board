@@ -32,7 +32,7 @@ function LoginForm({ onSwitch }: ILoginFormProps) {
           {...register('email')}
           type="email"
           placeholder="you@example.com"
-          className="rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+          className="rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200"
         />
         {errors.email && (
           <span className="text-xs text-red-500">{errors.email.message} </span>
@@ -44,7 +44,7 @@ function LoginForm({ onSwitch }: ILoginFormProps) {
           {...register('password')}
           type="password"
           placeholder="••••••••"
-          className="rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+          className="rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200"
         />
         {errors.password && (
           <span className="text-xs text-red-500">
@@ -55,7 +55,7 @@ function LoginForm({ onSwitch }: ILoginFormProps) {
       <button
         onClick={handleSubmit(onSubmit)}
         disabled={isSubmitting}
-        className="rounded-lg bg-blue-600 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
+        className="rounded-lg bg-primary-600 py-2 text-sm font-semibold text-white hover:bg-primary-700 disabled:opacity-50"
       >
         Sign In
       </button>
@@ -63,7 +63,7 @@ function LoginForm({ onSwitch }: ILoginFormProps) {
         Don't have an account?{' '}
         <button
           onClick={onSwitch}
-          className="font-medium text-blue-600 hover:underline"
+          className="font-medium text-primary-500 hover:underline"
         >
           Register
         </button>

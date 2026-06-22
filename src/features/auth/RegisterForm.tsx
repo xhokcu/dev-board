@@ -33,7 +33,7 @@ function RegisterForm({ onSwitch }: IRegisterFormProps) {
           {...register('name')}
           type="text"
           placeholder="John Doe"
-          className="rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+          className="rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200"
         />
         {errors.name && (
           <span className="text-xs text-red-500">{errors.name.message}</span>
@@ -45,7 +45,7 @@ function RegisterForm({ onSwitch }: IRegisterFormProps) {
           {...register('email')}
           type="email"
           placeholder="you@example.com"
-          className="rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+          className="rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200"
         />
         {errors.email && (
           <span className="text-xs text-red-500">{errors.email.message}</span>
@@ -57,7 +57,7 @@ function RegisterForm({ onSwitch }: IRegisterFormProps) {
           {...register('password')}
           type="password"
           placeholder="••••••••"
-          className="rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+          className="rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200"
         />
         {errors.password && (
           <span className="text-xs text-red-500">
@@ -73,7 +73,7 @@ function RegisterForm({ onSwitch }: IRegisterFormProps) {
           {...register('confirmPassword')}
           type="password"
           placeholder="••••••••"
-          className="rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+          className="rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200"
         />
         {errors.confirmPassword && (
           <span className="text-xs text-red-500">
@@ -83,7 +83,7 @@ function RegisterForm({ onSwitch }: IRegisterFormProps) {
       </div>
       <button
         onClick={handleSubmit(onSubmit)}
-        className="rounded-lg bg-blue-600 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+        className="rounded-lg bg-primary-600 py-2 text-sm font-semibold text-white hover:bg-primary-700"
       >
         Create Account
       </button>
@@ -91,7 +91,7 @@ function RegisterForm({ onSwitch }: IRegisterFormProps) {
         Already have an account?{' '}
         <button
           onClick={onSwitch}
-          className="font-medium text-blue-600 hover:underline"
+          className="font-medium text-primary-500 hover:underline"
         >
           Sign In
         </button>
