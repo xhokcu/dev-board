@@ -13,6 +13,7 @@ interface AuthState {
   user: User | null
   isAuthenticated: boolean
   isLoading: boolean
+  isInitialized: boolean
   error: string | null
   login: (email: string, password: string) => Promise<boolean>
   register: (name: string, email: string, password: string) => Promise<boolean>
@@ -31,9 +32,10 @@ export const useAuthStore = create<AuthState>()((set) => {
           name: firebaseUser.displayName || firebaseUser.email!,
         },
         isAuthenticated: true,
+        isInitialized: true,
       })
     } else {
-      set({ user: null, isAuthenticated: false })
+      set({ user: null, isAuthenticated: false, isInitialized: true })
     }
   })
 
@@ -41,6 +43,7 @@ export const useAuthStore = create<AuthState>()((set) => {
     user: null,
     isAuthenticated: false,
     isLoading: false,
+    isInitialized: false,
     error: null,
 
     login: async (email, password) => {
