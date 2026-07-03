@@ -3,6 +3,7 @@ import { useAuthStore } from '@/store/authStore'
 import AuthPage from '@/features/auth/AuthPage'
 import LandingPage from '@/features/landing/LandingPage'
 import BoardPage from '@/features/board/BoardPage'
+import ProfilePage from '@/features/profile/ProfilePage'
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
@@ -42,6 +43,14 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <BoardPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/profile',
+    element: (
+      <ProtectedRoute>
+        <ProfilePage />
       </ProtectedRoute>
     ),
   },
