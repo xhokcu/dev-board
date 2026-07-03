@@ -2,7 +2,7 @@
 
 A minimal Kanban board built for developers. Organize tasks, track progress, and stay focused on what matters.
 
-**[Live App](https://devboard-io.netlify.app) · [GitHub](https://github.com/xhokcu/devboard)**
+**[Live App](https://devboard-io.netlify.app)**
 
 ---
 
