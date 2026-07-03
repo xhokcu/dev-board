@@ -25,7 +25,7 @@ interface TaskState {
   moveTask: (id: string, status: TaskStatus) => Promise<void>
 }
 
-export const useTaskStore = create<TaskState>()((set, get) => ({
+export const useTaskStore = create<TaskState>()((set) => ({
   tasks: [],
   isLoading: false,
 
