@@ -1,42 +1,81 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
-import type { AuthState, User } from '@/types/index'
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile,
+  onAuthStateChanged,
+} from 'firebase/auth'
+import { auth } from '@/lib/firebase'
+import type { User } from '@/types'
 
-export const useAuthStore = create<AuthState>()(
-  persist(
-    (set) => ({
-      user: null,
-      isAuthenticated: false,
+interface AuthState {
+  user: User | null
+  isAuthenticated: boolean
+  isLoading: boolean
+  error: string | null
+  login: (email: string, password: string) => Promise<boolean>
+  register: (name: string, email: string, password: string) => Promise<boolean>
+  logout: () => Promise<void>
+  clearError: () => void
+}
 
-      login: (email, password) => {
-        const stored = localStorage.getItem(`user:${email}`)
-        if (!stored) return false
+export const useAuthStore = create<AuthState>()((set) => {
+  // listen to Firebase auth state changes
+  onAuthStateChanged(auth, (firebaseUser) => {
+    if (firebaseUser) {
+      set({
+        user: {
+          id: firebaseUser.uid,
+          email: firebaseUser.email!,
+          name: firebaseUser.displayName || firebaseUser.email!,
+        },
+        isAuthenticated: true,
+      })
+    } else {
+      set({ user: null, isAuthenticated: false })
+    }
+  })
 
-        const { password: storedPassword, user } = JSON.parse(stored)
-        if (storedPassword !== password) return false
+  return {
+    user: null,
+    isAuthenticated: false,
+    isLoading: false,
+    error: null,
 
-        set({ user, isAuthenticated: true })
+    login: async (email, password) => {
+      set({ isLoading: true, error: null })
+      try {
+        await signInWithEmailAndPassword(auth, email, password)
+        set({ isLoading: false })
         return true
-      },
-      register: (name, email, password) => {
-        const exists = localStorage.getItem(`user:${email}`)
-        if (exists) return false
+      } catch {
+        set({ error: 'Invalid email or password', isLoading: false })
+        return false
+      }
+    },
 
-        const user: User = {
-          id: crypto.randomUUID(),
+    register: async (name, email, password) => {
+      set({ isLoading: true, error: null })
+      try {
+        const result = await createUserWithEmailAndPassword(
+          auth,
           email,
-          name,
-        }
-
-        localStorage.setItem(
-          `user:${email}`,
-          JSON.stringify({ user, password })
+          password
         )
-        set({ user, isAuthenticated: true })
+        await updateProfile(result.user, { displayName: name })
+        set({ isLoading: false })
         return true
-      },
-      logout: () => set({ user: null, isAuthenticated: false }),
-    }),
-    { name: 'auth-storage' }
-  )
-)
+      } catch {
+        set({ error: 'Email already in use', isLoading: false })
+        return false
+      }
+    },
+
+    logout: async () => {
+      await signOut(auth)
+    },
+
+    clearError: () => set({ error: null }),
+  }
+})

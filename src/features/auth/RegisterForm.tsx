@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { registerSchema, type RegisterFormData } from './authSchemas'
@@ -10,6 +11,8 @@ interface IRegisterFormProps {
 function RegisterForm({ onSwitch }: IRegisterFormProps) {
   const register_ = useAuthStore((s) => s.register)
 
+  const [showPassword, setShowPassword] = useState(false)
+
   const {
     register,
     handleSubmit,
@@ -19,12 +22,13 @@ function RegisterForm({ onSwitch }: IRegisterFormProps) {
     resolver: zodResolver(registerSchema),
   })
 
-  const onSubmit = (data: RegisterFormData) => {
-    const success = register_(data.name, data.email, data.password)
+  const onSubmit = async (data: RegisterFormData) => {
+    const success = await register_(data.name, data.email, data.password)
     if (!success) {
-      setError('email', { message: 'Email already exists' })
+      setError('email', { message: 'Email already in use' })
     }
   }
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-1">
@@ -53,31 +57,24 @@ function RegisterForm({ onSwitch }: IRegisterFormProps) {
       </div>
       <div className="flex flex-col gap-1">
         <label className="text-sm font-medium text-gray-700">Password</label>
-        <input
-          {...register('password')}
-          type="password"
-          placeholder="••••••••"
-          className="rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200"
-        />
+        <div className="relative">
+          <input
+            {...register('password')}
+            type={showPassword ? 'text' : 'password'}
+            placeholder="••••••••"
+            className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword((p) => !p)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs"
+          >
+            {showPassword ? 'Hide' : 'Show'}
+          </button>
+        </div>
         {errors.password && (
           <span className="text-xs text-red-500">
             {errors.password.message}
-          </span>
-        )}
-      </div>
-      <div className="flex flex-col gap-1">
-        <label className="text-sm font-medium text-gray-700">
-          Confirm Password
-        </label>
-        <input
-          {...register('confirmPassword')}
-          type="password"
-          placeholder="••••••••"
-          className="rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200"
-        />
-        {errors.confirmPassword && (
-          <span className="text-xs text-red-500">
-            {errors.confirmPassword.message}
           </span>
         )}
       </div>
