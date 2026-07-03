@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useTaskStore } from '@/store/taskStore'
 import { useAuthStore } from '@/store/authStore'
-import type { TaskStatus } from '@/types'
+import type { Task, TaskStatus } from '@/types'
 
 const taskSchema = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -17,11 +17,14 @@ type TaskFormData = z.infer<typeof taskSchema>
 interface Props {
   defaultStatus: TaskStatus
   onClose: () => void
+  task?: Task
 }
 
-function TaskModal({ defaultStatus, onClose }: Props) {
+function TaskModal({ defaultStatus, onClose, task }: Props) {
   const addTask = useTaskStore((s) => s.addTask)
+  const updateTask = useTaskStore((s) => s.updateTask)
   const user = useAuthStore((s) => s.user)
+  const isEditing = !!task
 
   const {
     register,
@@ -29,12 +32,21 @@ function TaskModal({ defaultStatus, onClose }: Props) {
     formState: { errors, isSubmitting },
   } = useForm<TaskFormData>({
     resolver: zodResolver(taskSchema),
-    defaultValues: { priority: 'medium' },
+    defaultValues: {
+      title: task?.title || '',
+      description: task?.description || '',
+      priority: task?.priority || 'medium',
+      dueDate: task?.dueDate || '',
+    },
   })
 
   const onSubmit = async (data: TaskFormData) => {
-    if (!user) return
-    await addTask({ ...data, status: defaultStatus }, user.id)
+    if (isEditing) {
+      await updateTask(task.id, data)
+    } else {
+      if (!user) return
+      await addTask({ ...data, status: defaultStatus }, user.id)
+    }
     onClose()
   }
 
@@ -42,7 +54,9 @@ function TaskModal({ defaultStatus, onClose }: Props) {
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
       <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl flex flex-col gap-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-gray-900">New Task</h2>
+          <h2 className="text-lg font-semibold text-gray-900">
+            {isEditing ? 'Edit Task' : 'New Task'}
+          </h2>
           <button
             onClick={onClose}
             className="text-gray-400 hover:text-gray-600"
@@ -114,7 +128,11 @@ function TaskModal({ defaultStatus, onClose }: Props) {
             disabled={isSubmitting}
             className="flex-1 bg-primary-500 hover:bg-primary-600 text-white py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
           >
-            {isSubmitting ? 'Creating...' : 'Create Task'}
+            {isSubmitting
+              ? 'Saving...'
+              : isEditing
+                ? 'Save Changes'
+                : 'Create Task'}
           </button>
         </div>
       </div>

@@ -6,6 +6,7 @@ import { auth } from '@/lib/firebase'
 import { useAuthStore } from '@/store/authStore'
 import Navbar from '@/components/Navbar/Navbar'
 import { useNavigate } from 'react-router-dom'
+import ChangePasswordForm from './ChangePasswordForm'
 
 const profileSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -116,6 +117,7 @@ function ProfilePage() {
           >
             {isSubmitting ? 'Saving...' : 'Save Changes'}
           </button>
+          <ChangePasswordForm />
           <div className="border-t border-gray-100 pt-4 mt-2">
             <p className="text-sm font-medium text-gray-700 mb-1">
               Danger Zone
