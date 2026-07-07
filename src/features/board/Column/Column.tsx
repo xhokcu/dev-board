@@ -12,9 +12,9 @@ interface Props {
 
 const columnStyles: Record<TaskStatus, { bg: string; dot: string }> = {
   backlog: { bg: 'bg-gray-200', dot: 'bg-gray-400' },
-  'in-progress': { bg: 'bg-blue-50', dot: 'bg-blue-400' },
-  review: { bg: 'bg-yellow-50', dot: 'bg-yellow-400' },
-  done: { bg: 'bg-green-50', dot: 'bg-green-400' },
+  'in-progress': { bg: 'bg-[#fff7ed]', dot: 'bg-[#c2540a]' },
+  review: { bg: 'bg-[#eff6ff]', dot: 'bg-[#3b6fd4]' },
+  done: { bg: 'bg-[#e4f5eb]', dot: 'bg-[#2d8a50]' },
 }
 
 function Column({ id, label, tasks }: Props) {
