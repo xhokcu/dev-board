@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { registerSchema, type RegisterFormData } from './authSchemas'
 import { useAuthStore } from '@/store/authStore'
+import { Eye, EyeOff } from 'lucide-react'
 
 interface IRegisterFormProps {
   onSwitch: () => void
@@ -67,9 +68,9 @@ function RegisterForm({ onSwitch }: IRegisterFormProps) {
           <button
             type="button"
             onClick={() => setShowPassword((p) => !p)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
           >
-            {showPassword ? 'Hide' : 'Show'}
+            {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
           </button>
         </div>
         {errors.password && (

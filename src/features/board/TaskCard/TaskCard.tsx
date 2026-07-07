@@ -67,7 +67,11 @@ function TaskCard({ task }: Props) {
               {task.priority}
             </span>
             {task.dueDate && (
-              <span className="text-xs text-gray-400">{task.dueDate}</span>
+              <span className="text-xs text-gray-400">
+                {new Date(task.dueDate)
+                  .toLocaleDateString('en-GB')
+                  .replace(/\//g, '.')}
+              </span>
             )}
           </div>
         </div>
