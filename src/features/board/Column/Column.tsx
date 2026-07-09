@@ -36,7 +36,8 @@ function Column({ id, label, tasks }: Props) {
         </div>
         <button
           onClick={() => setShowModal(true)}
-          className="text-gray-400 hover:text-primary-500 transition-colors text-lg leading-none"
+          aria-label={`Add task to ${label}`}
+          className="text-gray-400 hover:text-primary-700 transition-colors text-lg leading-none"
         >
           +
         </button>

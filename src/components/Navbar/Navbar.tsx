@@ -15,7 +15,7 @@ function Navbar() {
       >
         <img src={logoIcon} alt="DevBoard" className="h-7 w-7" />
         <span className="font-semibold text-gray-900">
-          Dev<span className="text-primary-500">Board</span>
+          Dev<span className="text-primary-700">Board</span>
         </span>
       </button>
       <div className="flex items-center gap-3">

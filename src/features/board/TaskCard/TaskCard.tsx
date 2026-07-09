@@ -44,6 +44,7 @@ function TaskCard({ task }: Props) {
           </span>
           <button
             onClick={() => deleteTask(task.id)}
+            aria-label={`Delete task: ${task.title}`}
             className="text-gray-300 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100 text-xs shrink-0"
           >
             ✕
@@ -55,7 +56,7 @@ function TaskCard({ task }: Props) {
           className="flex flex-col gap-2 cursor-pointer"
         >
           {task.description && (
-            <p className="text-xs text-gray-400 leading-relaxed">
+            <p className="text-xs text-gray-500 leading-relaxed">
               {task.description}
             </p>
           )}
@@ -67,7 +68,7 @@ function TaskCard({ task }: Props) {
               {task.priority}
             </span>
             {task.dueDate && (
-              <span className="text-xs text-gray-400">
+              <span className="text-xs text-gray-500">
                 {new Date(task.dueDate)
                   .toLocaleDateString('en-GB')
                   .replace(/\//g, '.')}
