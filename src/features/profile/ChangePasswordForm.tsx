@@ -67,7 +67,7 @@ function ChangePasswordForm() {
           <button
             type="button"
             onClick={() => setShowCurrent((p) => !p)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-600"
           >
             {showCurrent ? <EyeOff size={16} /> : <Eye size={16} />}
           </button>
@@ -93,7 +93,7 @@ function ChangePasswordForm() {
           <button
             type="button"
             onClick={() => setShowNew((p) => !p)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-600"
           >
             {showNew ? <EyeOff size={16} /> : <Eye size={16} />}
           </button>
@@ -114,7 +114,7 @@ function ChangePasswordForm() {
       <button
         onClick={handleSubmit(onSubmit)}
         disabled={isSubmitting}
-        className="bg-primary-500 hover:bg-primary-600 text-white py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
+        className="bg-primary-700 hover:bg-primary-800 text-white py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
       >
         {isSubmitting ? 'Updating...' : 'Update Password'}
       </button>

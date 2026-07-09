@@ -58,13 +58,13 @@ function ProfilePage() {
       <div className="max-w-md mx-auto mt-12 bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
         <button
           onClick={() => navigate('/board')}
-          className="text-sm text-gray-400 hover:text-gray-600 transition-colors mb-6 flex items-center gap-1"
+          className="text-sm text-gray-500 hover:text-gray-600 transition-colors mb-6 flex items-center gap-1"
         >
           ← Back to Board
         </button>
         <h1 className="text-xl font-semibold text-gray-900 mb-6">Profile</h1>
         <div className="flex items-center gap-4 mb-8">
-          <div className="h-14 w-14 rounded-full bg-primary-500 text-white text-lg font-semibold flex items-center justify-center">
+          <div className="h-14 w-14 rounded-full bg-primary-700 text-white text-lg font-semibold flex items-center justify-center">
             {user?.name
               .split(' ')
               .map((n) => n[0])
@@ -74,7 +74,7 @@ function ProfilePage() {
           </div>
           <div>
             <p className="font-medium text-gray-900">{user?.name}</p>
-            <p className="text-sm text-gray-400">{user?.email}</p>
+            <p className="text-sm text-gray-500">{user?.email}</p>
           </div>
         </div>
 
@@ -99,7 +99,7 @@ function ProfilePage() {
               disabled
               className="rounded-lg border border-gray-100 bg-gray-50 px-4 py-2 text-sm text-gray-400 cursor-not-allowed"
             />
-            <span className="text-xs text-gray-400">
+            <span className="text-xs text-gray-500">
               Email cannot be changed
             </span>
           </div>
@@ -113,7 +113,7 @@ function ProfilePage() {
           <button
             onClick={handleSubmit(onSubmit)}
             disabled={isSubmitting || isUnchanged}
-            className="bg-primary-500 hover:bg-primary-600 text-white py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-primary-700 hover:bg-primary-800 text-white py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? 'Saving...' : 'Save Changes'}
           </button>
@@ -122,7 +122,7 @@ function ProfilePage() {
             <p className="text-sm font-medium text-gray-700 mb-1">
               Danger Zone
             </p>
-            <p className="text-xs text-gray-400 mb-3">
+            <p className="text-xs text-gray-500 mb-3">
               Deleting your account is permanent and cannot be undone.
             </p>
             <button

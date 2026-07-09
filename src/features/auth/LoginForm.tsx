@@ -54,7 +54,7 @@ function LoginForm({ onSwitch }: ILoginFormProps) {
           <button
             type="button"
             onClick={() => setShowPassword((p) => !p)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-600"
           >
             {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
           </button>
@@ -68,7 +68,7 @@ function LoginForm({ onSwitch }: ILoginFormProps) {
       <button
         onClick={handleSubmit(onSubmit)}
         disabled={isSubmitting}
-        className="rounded-lg bg-primary-600 py-2 text-sm font-semibold text-white hover:bg-primary-700 disabled:opacity-50"
+        className="rounded-lg bg-primary-700 py-2 text-sm font-semibold text-white hover:bg-primary-800 disabled:opacity-50"
       >
         Sign In
       </button>
@@ -76,7 +76,7 @@ function LoginForm({ onSwitch }: ILoginFormProps) {
         Don't have an account?{' '}
         <button
           onClick={onSwitch}
-          className="font-medium text-primary-500 hover:underline"
+          className="font-medium text-primary-700 hover:underline"
         >
           Register
         </button>

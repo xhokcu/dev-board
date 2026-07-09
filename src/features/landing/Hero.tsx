@@ -19,7 +19,7 @@ function Hero() {
       <div className="mt-10 flex gap-4">
         <button
           onClick={() => navigate('/auth')}
-          className="bg-primary-500 hover:bg-primary-600 text-white font-medium px-6 py-3 rounded-lg transition-colors"
+          className="bg-primary-700 hover:bg-primary-800 text-white font-medium px-6 py-3 rounded-lg transition-colors"
         >
           Get Started
         </button>

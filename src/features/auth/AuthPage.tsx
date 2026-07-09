@@ -12,7 +12,7 @@ function AuthPage() {
         <div className="mb-8 flex flex-col items-center gap-3">
           <img src={logo} alt="DevBoard" className="h-14 w-14" />
           <h1 className="text-2xl font-semibold text-gray-900">
-            Dev<span className="text-primary-500">Board</span>
+            Dev<span className="text-primary-700">Board</span>
           </h1>
           <p className="text-sm text-gray-500">
             {mode === 'login' ? 'Welcome back' : 'Create your account'}
