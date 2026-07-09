@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -41,6 +42,19 @@ function TaskModal({ defaultStatus, onClose, task }: Props) {
     },
   })
 
+  const titleInputRef = useRef<HTMLInputElement | null>(null)
+  const { ref: titleRegisterRef, ...titleRegisterRest } = register('title')
+
+  useEffect(() => {
+    titleInputRef.current?.focus()
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [onClose])
+
   const onSubmit = async (data: TaskFormData) => {
     if (isEditing) {
       await updateTask(task.id, data)
@@ -53,23 +67,42 @@ function TaskModal({ defaultStatus, onClose, task }: Props) {
 
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl flex flex-col gap-4">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="task-modal-title"
+        className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl flex flex-col gap-4"
+      >
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2
+            id="task-modal-title"
+            className="text-lg font-semibold text-gray-900"
+          >
             {isEditing ? 'Edit Task' : 'New Task'}
           </h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600"
+            aria-label="Close"
+            className="text-gray-500 hover:text-gray-600"
           >
             ✕
           </button>
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-sm font-medium text-gray-700">Title</label>
+          <label
+            htmlFor="task-title"
+            className="text-sm font-medium text-gray-700"
+          >
+            Title
+          </label>
           <input
-            {...register('title')}
+            id="task-title"
+            {...titleRegisterRest}
+            ref={(el) => {
+              titleRegisterRef(el)
+              titleInputRef.current = el
+            }}
             placeholder="Task title"
             className="rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200"
           />
@@ -79,10 +112,14 @@ function TaskModal({ defaultStatus, onClose, task }: Props) {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-sm font-medium text-gray-700">
+          <label
+            htmlFor="task-description"
+            className="text-sm font-medium text-gray-700"
+          >
             Description
           </label>
           <textarea
+            id="task-description"
             {...register('description')}
             placeholder="Optional description"
             rows={3}
@@ -92,11 +129,15 @@ function TaskModal({ defaultStatus, onClose, task }: Props) {
 
         <div className="flex gap-4">
           <div className="flex flex-col gap-1 flex-1">
-            <label className="text-sm font-medium text-gray-700">
+            <label
+              htmlFor="task-priority"
+              className="text-sm font-medium text-gray-700"
+            >
               Priority
             </label>
             <div className="relative">
               <select
+                id="task-priority"
                 {...register('priority')}
                 className="w-full appearance-none rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 pr-8"
               >
@@ -104,17 +145,21 @@ function TaskModal({ defaultStatus, onClose, task }: Props) {
                 <option value="medium">Medium</option>
                 <option value="high">High</option>
               </select>
-              <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+              <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
                 <ChevronDown size={14} />
               </div>
             </div>
           </div>
 
           <div className="flex flex-col gap-1 flex-1">
-            <label className="text-sm font-medium text-gray-700">
+            <label
+              htmlFor="task-due-date"
+              className="text-sm font-medium text-gray-700"
+            >
               Due Date
             </label>
             <input
+              id="task-due-date"
               {...register('dueDate')}
               type="date"
               className="rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:border-primary-500"
@@ -132,7 +177,7 @@ function TaskModal({ defaultStatus, onClose, task }: Props) {
           <button
             onClick={handleSubmit(onSubmit)}
             disabled={isSubmitting}
-            className="flex-1 bg-primary-500 hover:bg-primary-600 text-white py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
+            className="flex-1 bg-primary-700 hover:bg-primary-800 text-white py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
           >
             {isSubmitting
               ? 'Saving...'
