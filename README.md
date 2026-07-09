@@ -1,73 +1,98 @@
-# React + TypeScript + Vite
+# DevBoard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A minimal Kanban board built for developers. Organize tasks, track progress, and stay focused on what matters.
 
-Currently, two official plugins are available:
+**[Live App](https://devboard-io.netlify.app)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Kanban Board** — Four columns: Backlog, In Progress, Review, Done
+- **Task Management** — Create, edit and delete tasks with title, description, priority and due date
+- **Drag & Drop** — Move tasks between columns intuitively
+- **Authentication** — Register and login with Firebase Auth
+- **Persistent Data** — Tasks stored per user in Firestore
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Area | Tech |
+|---|---|
+| Framework | React 18 + TypeScript |
+| Build Tool | Vite |
+| Styling | Tailwind CSS v4 |
+| State Management | Zustand |
+| Forms & Validation | React Hook Form + Zod |
+| Backend & Auth | Firebase (Auth + Firestore) |
+| Testing | Vitest + React Testing Library |
+| Deployment | Netlify |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Prerequisites
+- Node.js 18+
+- A Firebase project with Auth and Firestore enabled
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/xhokcu/devboard.git
+cd devboard
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env
+# Fill in your Firebase config values in .env
+
+# Start the dev server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Environment Variables
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Create a `.env` file in the root with the following:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```env
+VITE_FIREBASE_API_KEY=
+VITE_FIREBASE_AUTH_DOMAIN=
+VITE_FIREBASE_PROJECT_ID=
+VITE_FIREBASE_STORAGE_BUCKET=
+VITE_FIREBASE_MESSAGING_SENDER_ID=
+VITE_FIREBASE_APP_ID=
 ```
+
+### Scripts
+
+```bash
+npm run dev       # Start development server
+npm run build     # Build for production
+npm run test      # Run tests
+npm run lint      # Lint code
+npm run format    # Format code with Prettier
+```
+
+## Project Structure
+
+```
+src/
+├── assets/          # Static assets (logo, icons)
+├── components/      # Reusable UI components
+├── features/
+│   ├── auth/        # Login, register, auth forms
+│   ├── board/       # Board page, columns, task cards, modal
+│   └── landing/     # Landing page, hero, features, footer
+├── hooks/           # Custom React hooks
+├── lib/             # Firebase setup
+├── router/          # Route definitions and route guards
+├── store/           # Zustand stores (auth, tasks)
+├── tests/           # Test setup and test files
+├── types/           # Shared TypeScript types
+└── utils/           # Helper functions
+```
+
+## License
+
+MIT
