@@ -3,6 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { loginSchema, type LoginFormData } from './authSchemas'
 import { useAuthStore } from '@/store/authStore'
 import { useState } from 'react'
+import { Eye, EyeOff } from 'lucide-react'
 
 interface ILoginFormProps {
   onSwitch: () => void
@@ -53,9 +54,9 @@ function LoginForm({ onSwitch }: ILoginFormProps) {
           <button
             type="button"
             onClick={() => setShowPassword((p) => !p)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
           >
-            {showPassword ? 'Hide' : 'Show'}
+            {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
           </button>
         </div>
         {errors.password && (

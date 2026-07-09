@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { useTaskStore } from '@/store/taskStore'
 import { useAuthStore } from '@/store/authStore'
 import type { Task, TaskStatus } from '@/types'
+import { ChevronDown } from 'lucide-react'
 
 const taskSchema = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -94,14 +95,19 @@ function TaskModal({ defaultStatus, onClose, task }: Props) {
             <label className="text-sm font-medium text-gray-700">
               Priority
             </label>
-            <select
-              {...register('priority')}
-              className="rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:border-primary-500"
-            >
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-            </select>
+            <div className="relative">
+              <select
+                {...register('priority')}
+                className="w-full appearance-none rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200 pr-8"
+              >
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+              <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                <ChevronDown size={14} />
+              </div>
+            </div>
           </div>
 
           <div className="flex flex-col gap-1 flex-1">

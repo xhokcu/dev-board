@@ -8,6 +8,7 @@ import {
   updatePassword,
 } from 'firebase/auth'
 import { auth } from '@/lib/firebase'
+import { Eye, EyeOff } from 'lucide-react'
 
 const schema = z.object({
   currentPassword: z.string().min(6, 'Required'),
@@ -66,9 +67,9 @@ function ChangePasswordForm() {
           <button
             type="button"
             onClick={() => setShowCurrent((p) => !p)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
           >
-            {showCurrent ? 'Hide' : 'Show'}
+            {showCurrent ? <EyeOff size={16} /> : <Eye size={16} />}
           </button>
         </div>
         {errors.currentPassword && (
@@ -92,9 +93,9 @@ function ChangePasswordForm() {
           <button
             type="button"
             onClick={() => setShowNew((p) => !p)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
           >
-            {showNew ? 'Hide' : 'Show'}
+            {showNew ? <EyeOff size={16} /> : <Eye size={16} />}
           </button>
         </div>
         {errors.newPassword && (
